@@ -1,16 +1,27 @@
 // import { render, screen } from "@testing-library/react";
 import React from "react";
-import { shallow } from "enzyme";
+import { mount } from "enzyme";
 import { findByTestAttr } from "../test/testUtils";
 
 import App from "./App";
 
+import hookActions from "./actions/hookActions";
+
+// leaving this empty just to spy so doesn't need to return anything
+const mockGetSecretWord = jest.fn();
+
 /**
  * Setup function for app component.
- * @returns {ShallowWrapper}
+ * @returns {ReactWrapper}
  */
 
-const setup = () => shallow(<App />);
+const setup = () => {
+  mockGetSecretWord.mockClear();
+  hookActions.getSecretWord = mockGetSecretWord;
+
+  // use mount, because useEffect not called on 'shallow'
+  return mount(<App />);
+};
 
 // test("renders learn react link", () => {
 //   render(<App />);
@@ -23,4 +34,12 @@ test("App renders without error", () => {
   const component = findByTestAttr(wrapper, "component-app");
 
   expect(component.length).toBe(1);
+});
+
+describe("getSecretWord calls", () => {
+  test("getSecretWord gets called on App mount", () => {
+    setup();
+
+    expect(mockGetSecretWord).toHaveBeenCalled();
+  });
 });
