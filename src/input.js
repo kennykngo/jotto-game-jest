@@ -1,5 +1,5 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
 
 function Input({ secretWord }) {
   // Doesn't destructure it to be able to mock.
