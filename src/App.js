@@ -5,6 +5,8 @@ import Congrats from "./Congrats";
 
 import hookActions from "./actions/hookActions";
 
+import Input from "./Input";
+
 /**
  * reducer to update state, called automatically by dispatch
  * @param {object} state - existing state
@@ -32,13 +34,19 @@ function App() {
     hookActions.getSecretWord(setSecretWord);
   }, []);
 
+  if (!state.secretWord) {
+    return (
+      <div className="contianer" data-test="spinner">
+        <div className="spinner-border" role="status"></div>
+        <span className="sr-only">Loading...</span>
+        <p>Loading secret word</p>
+      </div>
+    );
+  }
+
   return (
     <div data-test="component-app" className="container App">
-      <h1>Jotto</h1>
-      <Congrats success={true} />
-      <GuessedWords
-        guessedWords={[{ guessedWord: "train", letterMatchCount: 3 }]}
-      />
+      <Input secretWord={state.secretWord} />
     </div>
   );
 }

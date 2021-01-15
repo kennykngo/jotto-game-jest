@@ -2,7 +2,7 @@ import React from "react";
 
 import { shallow } from "enzyme";
 import { findByTestAttr, checkProps } from "../test/testUtils";
-import Input from "./input";
+import Input from "./Input";
 
 /**
  * @function setup

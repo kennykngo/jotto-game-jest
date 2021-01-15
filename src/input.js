@@ -19,7 +19,7 @@ function Input({ secretWord }) {
         {/* needs prevent default  */}
         <button
           data-test="submit-button"
-          className="btn btn-primary-mb-2"
+          className="btn btn-primary mb-2"
           onClick={(e) => {
             e.preventDefault();
             // TODO: update guessedWords
