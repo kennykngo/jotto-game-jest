@@ -1,5 +1,8 @@
-import React from "react";
 import PropTypes from "prop-types";
+import React from "react";
+
+import languageContext from "./contexts/LanguageContext";
+import stringsModule from "./helpers/strings";
 
 /**
  * Functional react component for congratulatory message.
@@ -9,14 +12,18 @@ import PropTypes from "prop-types";
  */
 
 const Congrats = (props) => {
-  {
-    return props.success ? (
+  const language = React.useContext(languageContext);
+
+  if (props.success) {
+    return (
       <div data-test="component-congrats" className="alert alert-success">
-        <span data-test="congrats-message">You guessed the word!</span>
+        <span data-test="congrats-message">
+          {stringsModule.getStringByLanguage(language, "congrats")}
+        </span>
       </div>
-    ) : (
-      <div data-test="component-congrats"></div>
     );
+  } else {
+    return <div data-test="component-congrats"></div>;
   }
 
   //   return < data-test="component-congrats"></>;
